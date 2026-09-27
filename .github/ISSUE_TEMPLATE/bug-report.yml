@@ -1,0 +1,78 @@
+name: Bug report
+description: Report behaviour that differs from the documentation.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Use the demo team or made-up names. Do not include real colleagues'
+        names, exported JSON files, or team links from your own team.
+  - type: input
+    id: commit
+    attributes:
+      label: Commit SHA or site URL
+      placeholder: full SHA from git rev-parse HEAD, or the deployed URL
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser and version, operating system, screen (laptop, phone, TV).
+      placeholder: Chrome 140; Windows 11; 1440×900
+    validations:
+      required: true
+  - type: dropdown
+    id: demo
+    attributes:
+      label: Reproduces with the demo team?
+      options:
+        - "Yes"
+        - "No"
+        - Not tried
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: Link the guide in docs/ that describes it, if one does.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Standup
+        - Raffle
+        - Icebreaker
+        - Hot Seat
+        - Teams / out today / team link
+        - Topics / questions editor
+        - Export / import
+        - Presenter mode / theme / keyboard
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Data handling
+      options:
+        - label: I removed real names and exported data from this report.
+          required: true

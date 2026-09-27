@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Possible security problem
+    url: https://github.com/gkolan/pick-next/security/advisories/new
+    about: Use private security reporting. Do not place real team names or exported data in an issue.

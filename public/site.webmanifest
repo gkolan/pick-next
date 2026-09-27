@@ -1,0 +1,13 @@
+{
+  "name": "Pick Next",
+  "short_name": "PickNext",
+  "description": "Fun standups, raffles, and team icebreakers",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fff4dd",
+  "theme_color": "#fff4dd",
+  "icons": [
+    { "src": "icon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}

@@ -1,0 +1,36 @@
+name: Feature request
+description: Propose a change to what PickNext does.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        PickNext has no accounts and no server. Proposals that need one are
+        out of scope; picks stay fair (crypto RNG, no hidden weighting).
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the situation, not the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Which mode?
+      options:
+        - Standup
+        - Raffle
+        - Icebreaker
+        - Hot Seat
+        - All / app-wide
+    validations:
+      required: true

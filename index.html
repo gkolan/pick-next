@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pick Next | Fun standups, raffles, and team icebreakers</title>
+  <meta name="description" content="Run fair standups, suspenseful raffles, and social icebreakers with a beautifully shareable team picker.">
+  <link rel="canonical" href="https://picknext.io/">
+  <meta name="theme-color" content="#fff4dd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1d1915" media="(prefers-color-scheme: dark)">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Pick Next | Fun standups, raffles, and team icebreakers">
+  <meta property="og:description" content="Run fair standups, suspenseful raffles, and social icebreakers with a beautifully shareable team picker.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://picknext.io/">
+  <meta property="og:site_name" content="Pick Next">
+  <meta property="og:image" content="https://picknext.io/og/default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pick Next shared-screen interface with a highlighted winner">
+
+  <!-- X / Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pick Next | Fun standups, raffles, and team icebreakers">
+  <meta name="twitter:description" content="Run fair standups, suspenseful raffles, and social icebreakers with a beautifully shareable team picker.">
+  <meta name="twitter:image" content="https://picknext.io/og/default.png">
+
+  <!-- Favicon & Manifest -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pick Next",
+    "url": "https://picknext.io/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "description": "A web app for standups, raffles, and social icebreakers with suspenseful participant picking.",
+    "offers": { "@type": "Offer", "price": "0" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Privacy-friendly analytics by Plausible (page views only; team links stay private) -->
+  <script src="plausible-init.js"></script>
+  <script async src="https://plausible.io/js/pa-cvyiLxKsBN2op5zPSbAuw.js"></script>
+  <script>try{var t=localStorage.getItem("picknext_theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+  <div id="app">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <h1 class="app-title"><button id="home-btn" class="home-btn" type="button" title="Back to the start screen"><svg class="app-logo" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="8,4 20,12 8,20"/></svg>PickNext</button></h1>
+        <span class="app-tagline">Fair & fun team picking</span>
+      </div>
+      <div class="header-center">
+        <div class="mode-switcher" role="radiogroup" aria-label="Pick mode">
+          <button class="mode-btn active" data-mode="standup" role="radio" aria-checked="true" tabindex="0" title="Timed turns for daily standups">Standup</button>
+          <button class="mode-btn" data-mode="raffle" role="radio" aria-checked="false" tabindex="-1" title="Suspenseful multi-prize drawings">Raffle</button>
+          <button class="mode-btn" data-mode="icebreaker" role="radio" aria-checked="false" tabindex="-1" title="Fun topics & team conversations">Icebreaker</button>
+          <button class="mode-btn" data-mode="hotseat" role="radio" aria-checked="false" tabindex="-1" title="Rapid-fire Q&A spotlight">Hot Seat</button>
+        </div>
+      </div>
+      <div class="header-right">
+        <button id="exit-demo-btn" class="btn-header-action btn-header-demo" type="button" title="Leave the demo and set up your own team" style="display:none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Exit demo
+        </button>
+        <button id="sound-btn" class="btn-header-action btn-header-icon" type="button"></button>
+        <button id="theme-btn" class="btn-header-action btn-header-icon" type="button"></button>
+        <button id="presenter-mode-btn" class="btn-header-action" title="Toggle Presenter Mode">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span class="present-label">Present</span><span class="present-label-on">Stop Presenting</span>
+        </button>
+        <div class="sidebar-action-wrap" id="edit-action-wrap">
+          <button id="edit-btn" class="btn-header-action" title="Edit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+            Edit
+          </button>
+          <div class="sidebar-action-menu" id="edit-menu" style="display:none;">
+            <button class="sidebar-action-menu-item" id="edit-team-menu-btn">Edit Team</button>
+            <button class="sidebar-action-menu-item" id="edit-topics-menu-btn">Edit Topics</button>
+          </div>
+        </div>
+        <div class="sidebar-action-wrap" id="new-action-wrap">
+          <button id="new-team-btn" class="btn-header-action btn-header-primary" title="New">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New
+          </button>
+          <div class="sidebar-action-menu" id="new-menu" style="display:none;">
+            <button class="sidebar-action-menu-item" id="new-team-menu-btn">New Team</button>
+            <button class="sidebar-action-menu-item" id="new-topics-menu-btn">New Topics</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sidebar backdrop (mobile overlay) -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- Hidden elements for backwards compat (used by JS but not displayed) -->
+    <div style="display:none;" aria-hidden="true" inert>
+      <span id="status-dot"></span>
+      <span id="status-text"></span>
+      <span id="participant-count"></span>
+      <button id="reset-btn"></button>
+      <button id="delete-team-btn-hidden"></button>
+      <select id="topic-list-select"></select>
+      <button id="new-topic-list-btn"></button>
+      <button id="edit-topics-btn"></button>
+      <div class="history-section"><ul id="history-list" class="history-list"></ul></div>
+    </div>
+
+    <!-- Cloud Area -->
+    <main class="cloud-area">
+      <!-- Floating Action Buttons: top-right when idle, a card with Exit top-left in a session -->
+      <div class="stage-fab" id="stage-fab">
+        <button class="fab-btn" id="fab-settings-btn" title="Settings" aria-controls="sidebar" aria-expanded="false">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="fab-label">Settings</span>
+        </button>
+        <!-- Exit (any running or finished session): always one click back to the start -->
+        <button id="exit-btn" class="fab-btn stage-exit" type="button" title="Exit session (Esc)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+          <span id="exit-btn-label">Exit</span>
+        </button>
+      </div>
+
+      <!-- Start (idle, after the welcome overlay is dismissed) -->
+      <div id="start-cta" class="start-cta" style="display:none;">
+        <button id="start-team" class="start-team" type="button" title="Switch or edit team"></button>
+        <!-- The team's turn length and chances, one click from changing them -->
+        <button id="start-settings" class="start-settings" type="button" title="Change the timer and chances">
+          <span class="start-chip start-chip-timer" id="start-chip-timer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>
+            <strong id="start-timer-value"></strong><span id="start-timer-unit"></span>
+          </span>
+          <span class="start-chip start-chip-chances">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M13 6v2M13 11v2M13 16v2"/></svg>
+            <strong id="start-chances-value"></strong><span id="start-chances-unit"></span>
+          </span>
+          <span class="start-settings-edit">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+            Edit
+          </span>
+        </button>
+        <button id="start-btn" class="btn btn-primary btn-start" type="button">Start</button>
+        <span class="start-hint"><strong>Anyone out today?</strong> Tap their name to mark them out, tap again to bring them back.</span>
+        <span class="start-hint">Then press Start or <kbd>Space</kbd></span>
+      </div>
+      <!-- Topic Bar (Icebreaker mode, above the turn bar) -->
+      <div id="topic-bar" class="topic-bar">
+        <div id="topic-bar-text" class="topic-bar-text"></div>
+      </div>
+      <!-- Turn Bar (active session) -->
+      <div id="turn-bar" class="turn-bar">
+        <div class="turn-bar-timer">
+          <div id="timer-value" class="timer-value inactive">120</div>
+          <div class="timer-bar">
+            <div id="timer-bar-fill" class="timer-bar-fill"></div>
+          </div>
+        </div>
+        <div class="turn-bar-center">
+          <div id="turn-counter" class="turn-counter"></div>
+          <div id="sidebar-current-topic" class="turn-bar-topic" style="display:none;"></div>
+          <div id="sidebar-current-name" class="turn-bar-name"></div>
+        </div>
+        <div class="turn-bar-actions">
+          <button id="skip-btn" class="btn btn-turn btn-skip" title="Skip this person" style="display:none;">Skip</button>
+          <button id="pause-btn" class="btn btn-turn btn-pause" title="Pause timer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            Pause
+          </button>
+          <button id="pick-next-btn" class="btn btn-turn btn-next" title="Pick next person">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+            Pick Next
+          </button>
+        </div>
+      </div>
+
+      <!-- Recap Panel (shown after session completes) -->
+      <div id="recap-panel" class="recap-panel" style="display:none;">
+        <div class="recap-header">
+          <h2 id="recap-title" class="recap-title">Session Complete</h2>
+          <div id="recap-time" class="recap-time"></div>
+        </div>
+        <div id="recap-body" class="recap-body"></div>
+        <div class="recap-actions">
+          <button id="recap-again-btn" class="btn btn-primary">Run Again</button>
+          <button id="recap-close-btn" class="btn btn-secondary">Close</button>
+        </div>
+      </div>
+      <div id="cloud-container" class="cloud-container"></div>
+
+      <!-- Hot Seat Question Card (replaces cloud during Q&A phase) -->
+      <div id="hotseat-card" class="hotseat-card" style="display:none;">
+        <div id="hotseat-card-name" class="hotseat-card-name"></div>
+        <div id="hotseat-card-counter" class="hotseat-card-counter"></div>
+        <div id="hotseat-card-question" class="hotseat-card-question"></div>
+        <div class="hotseat-card-actions">
+          <button id="hotseat-skip-btn" class="btn btn-secondary">Skip</button>
+          <button id="hotseat-next-q-btn" class="btn btn-primary">Answered</button>
+        </div>
+      </div>
+
+      <!-- Winners Lane (raffle mode: lists winners as they are drawn) -->
+      <div id="winners-lane" class="winners-lane collapsed" style="display:none;">
+        <div class="winners-lane-title">Winners
+          <button id="winners-lane-toggle" class="progress-lane-toggle" type="button" aria-controls="winners-lane-list" aria-expanded="false" title="Show all">+</button>
+        </div>
+        <div id="winners-lane-list" class="winners-lane-list"></div>
+      </div>
+
+      <!-- Progress Lane (standup, icebreaker and hot seat: lists picks so far) -->
+      <div id="progress-lane" class="progress-lane collapsed" style="display:none;">
+        <div class="progress-lane-title">Progress
+          <button id="progress-lane-toggle" class="progress-lane-toggle" type="button" aria-controls="progress-lane-list" aria-expanded="false" title="Show all">+</button>
+        </div>
+        <div id="progress-lane-list" class="progress-lane-list"></div>
+        <p class="progress-lane-empty">Nobody has finished yet</p>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <span>Built by <a href="https://gautamkolan.com" target="_blank" rel="noopener">Gautam Kolan</a></span>
+      <a class="footer-github" href="https://github.com/gkolan/pick-next" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub
+      </a>
+    </footer>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Settings">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Settings</h2>
+        <button type="button" class="btn-icon" id="sidebar-close-btn" aria-label="Close settings">&times;</button>
+      </div>
+
+      <!-- Mobile-only action bar (Edit / New) -->
+      <div class="sidebar-mobile-actions">
+        <div class="sidebar-action-wrap" id="mobile-edit-action-wrap">
+          <button class="btn-header-action" id="mobile-edit-btn" title="Edit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+            Edit
+          </button>
+          <div class="sidebar-action-menu" id="mobile-edit-menu" style="display:none;">
+            <button class="sidebar-action-menu-item" id="mobile-edit-team-menu-btn">Edit Team</button>
+            <button class="sidebar-action-menu-item" id="mobile-edit-topics-menu-btn">Edit Topics</button>
+          </div>
+        </div>
+        <div class="sidebar-action-wrap" id="mobile-new-action-wrap">
+          <button class="btn-header-action" id="mobile-new-btn" title="New">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New
+          </button>
+          <div class="sidebar-action-menu" id="mobile-new-menu" style="display:none;">
+            <button class="sidebar-action-menu-item" id="mobile-new-team-menu-btn">New Team</button>
+            <button class="sidebar-action-menu-item" id="mobile-new-topics-menu-btn">New Topics</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls section: Team + Settings + End -->
+      <div class="sidebar-controls">
+        <!-- Team -->
+        <label for="team-select" class="section-title">Team</label>
+        <div class="team-select-row">
+          <select id="team-select" class="sidebar-select"></select>
+          <button id="delete-team-btn" class="btn-icon btn-delete-team" title="Delete team" aria-label="Delete team">&times;</button>
+        </div>
+        <button id="share-team-btn" type="button" class="btn btn-secondary btn-sm btn-share-team">Copy team link</button>
+
+        <!-- Settings -->
+        <div class="section-title sidebar-settings-title">Settings</div>
+        <div class="settings-grid">
+          <!-- Standup settings -->
+          <div id="settings-standup">
+            <div class="setting-item">
+              <label for="timer-input" class="setting-label">Timer Duration (sec)</label>
+              <input id="timer-input" class="timer-input" type="text" inputmode="numeric" pattern="[0-9]*" value="120">
+            </div>
+            <div class="setting-item">
+              <span id="label-auto-switch" class="setting-label">Auto-advance when timer ends</span>
+              <button id="timer-mode-btn" class="toggle-switch" role="switch" aria-checked="true" aria-labelledby="label-auto-switch" title="Auto-advance to next person when timer expires">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+            <div class="setting-item">
+              <span id="label-random-pick" class="setting-label">Pick in random order</span>
+              <button id="order-mode-btn" class="toggle-switch" role="switch" aria-checked="true" aria-labelledby="label-random-pick" title="Pick randomly or go in list order">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+          </div>
+          <!-- Raffle settings -->
+          <div id="settings-raffle" style="display:none;">
+            <div class="setting-item">
+              <label for="prize-count-input" class="setting-label">Number of Prizes</label>
+              <input id="prize-count-input" class="timer-input" type="text" inputmode="numeric" pattern="[0-9]*" value="3">
+            </div>
+          </div>
+          <!-- Icebreaker settings -->
+          <div id="settings-icebreaker" style="display:none;">
+            <div class="setting-item">
+              <label for="icebreaker-topic-list-select" class="setting-label">Topic List</label>
+              <select id="icebreaker-topic-list-select" class="sidebar-select" title="Switch topic list"></select>
+            </div>
+            <div class="setting-item">
+              <label for="icebreaker-timer-input" class="setting-label">Timer Duration (sec)</label>
+              <input id="icebreaker-timer-input" class="timer-input" type="text" inputmode="numeric" pattern="[0-9]*" value="120">
+            </div>
+            <div class="setting-item">
+              <span id="label-topic-rotation" class="setting-label">New topic each round</span>
+              <button id="topic-rotation-btn" class="toggle-switch" role="switch" aria-checked="true" aria-labelledby="label-topic-rotation" title="New topic each round (ON) or same topic all session (OFF)">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+            <div class="setting-item">
+              <span id="label-repeat-people" class="setting-label">Allow picking same person again</span>
+              <button id="repeat-people-btn" class="toggle-switch" role="switch" aria-checked="false" aria-labelledby="label-repeat-people" title="Allow picking the same person again">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+            <div class="setting-item">
+              <span id="label-repeat-topics" class="setting-label">Allow reusing same topic</span>
+              <button id="repeat-topics-btn" class="toggle-switch" role="switch" aria-checked="false" aria-labelledby="label-repeat-topics" title="Allow using the same topic again">
+                <span class="toggle-knob"></span>
+              </button>
+            </div>
+          </div>
+          <!-- Hot Seat settings -->
+          <div id="settings-hotseat" style="display:none;">
+            <div class="setting-item">
+              <label for="hotseat-question-list-select" class="setting-label">Question List</label>
+              <select id="hotseat-question-list-select" class="sidebar-select"></select>
+            </div>
+            <div class="setting-item">
+              <label for="hotseat-questions-per-person" class="setting-label">Questions per person</label>
+              <input id="hotseat-questions-per-person" class="timer-input" type="text" inputmode="numeric" pattern="[0-9]*" value="5">
+            </div>
+            <div class="setting-item">
+              <label for="hotseat-timer-input" class="setting-label">Seconds per question</label>
+              <input id="hotseat-timer-input" class="timer-input" type="text" inputmode="numeric" pattern="[0-9]*" value="15">
+            </div>
+          </div>
+        </div>
+
+        <!-- End button -->
+        <div id="end-section" style="display:none;">
+          <button id="end-session-btn" class="btn btn-end-session">End Standup</button>
+        </div>
+      </div>
+
+      <!-- Data Management -->
+      <div class="sidebar-section data-section">
+        <div class="data-actions">
+          <button id="export-btn" class="btn-data" title="Export all data as JSON">Export</button>
+          <button id="import-btn" class="btn-data" title="Import data from JSON file">Import</button>
+          <input type="file" id="import-file-input" accept=".json" style="display:none;">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Participant Editor Dialog -->
+  <dialog id="editor-dialog" class="editor-dialog">
+    <form method="dialog" novalidate>
+      <div class="dialog-header">
+        <div class="dialog-title-row">
+          <input id="editor-team-name" class="editor-team-name" type="text" placeholder="Team name" maxlength="40">
+          <div class="dialog-timer-default">
+            <label for="editor-default-timer" class="dialog-timer-label">Default</label>
+            <input id="editor-default-timer" class="timer-input" type="text" inputmode="numeric" pattern="[0-9]*" value="120">
+            <span class="dialog-timer-unit">sec</span>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-hints">
+        <p class="dialog-hint"><strong>Chances</strong> &mdash; Higher value = more likely to be picked. 2 is twice as likely as 1.</p>
+        <p class="dialog-hint"><strong>Time</strong> &mdash; Overrides the default countdown for this person. Leave blank to use default.</p>
+      </div>
+      <div class="editor-table-header">
+        <span class="editor-col-name">Name</span>
+        <span class="editor-col-chances">Chances</span>
+        <span class="editor-col-time">Time</span>
+        <span class="editor-col-action"></span>
+      </div>
+      <div id="editor-rows" class="editor-rows"></div>
+      <div class="editor-paste-section">
+        <button type="button" id="editor-paste-toggle" class="btn btn-secondary btn-sm">Paste Names</button>
+        <div id="editor-paste-area" style="display:none;">
+          <textarea id="editor-paste-input" class="editor-paste-input" rows="4" placeholder="Paste names separated by commas or new lines"></textarea>
+          <button type="button" id="editor-paste-add" class="btn btn-primary btn-sm">Add Names</button>
+        </div>
+      </div>
+      <p id="editor-error" class="editor-error" role="alert" aria-live="assertive"></p>
+      <div class="dialog-actions">
+        <button type="button" id="close-editor-btn" class="btn btn-danger">Close</button>
+        <button type="button" id="save-editor-btn" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Topic Editor Dialog -->
+  <dialog id="topic-editor-dialog" class="editor-dialog">
+    <form method="dialog" novalidate>
+      <div class="dialog-header">
+        <h2>Edit Topics</h2>
+      </div>
+      <p class="dialog-hint">Add conversation topics for Icebreaker mode.</p>
+      <div id="topic-editor-rows" class="editor-rows"></div>
+      <p id="topic-editor-error" class="editor-error" role="alert" aria-live="assertive"></p>
+      <div class="dialog-actions">
+        <button type="button" id="add-topic-btn" class="btn btn-secondary">+ Add Topic</button>
+        <button type="button" id="close-topic-editor-btn" class="btn btn-danger">Close</button>
+        <button type="button" id="save-topic-editor-btn" class="btn btn-primary">Save Topics</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="editor-row-template">
+    <div class="editor-row">
+      <input class="editor-name-input" type="text" maxlength="40" placeholder="Name" required>
+      <input class="editor-chances-input" type="number" min="1" max="5" step="1" value="1" required>
+      <input class="editor-timer-input" type="number" min="5" max="1200" step="1" placeholder="">
+      <button class="editor-remove-btn" type="button" title="Remove">&times;</button>
+    </div>
+  </template>
+
+  <!-- Question Editor Dialog (Hot Seat) -->
+  <dialog id="question-editor-dialog" class="editor-dialog">
+    <form method="dialog" novalidate>
+      <div class="dialog-header">
+        <h2>Edit Questions</h2>
+      </div>
+      <p class="dialog-hint">Add rapid-fire questions for Hot Seat mode.</p>
+      <div id="question-editor-rows" class="editor-rows"></div>
+      <p id="question-editor-error" class="editor-error" role="alert" aria-live="assertive"></p>
+      <div class="dialog-actions">
+        <button type="button" id="add-question-btn" class="btn btn-secondary">+ Add Question</button>
+        <button type="button" id="close-question-editor-btn" class="btn btn-danger">Close</button>
+        <button type="button" id="save-question-editor-btn" class="btn btn-primary">Save Questions</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="question-row-template">
+    <div class="editor-row topic-row">
+      <input class="editor-question-input" type="text" placeholder="Enter a question..." required>
+      <button class="editor-remove-btn" type="button" title="Remove">&times;</button>
+    </div>
+  </template>
+
+  <template id="topic-row-template">
+    <div class="editor-row topic-row">
+      <input class="editor-topic-input" type="text" placeholder="Enter a topic..." required>
+      <button class="editor-remove-btn" type="button" title="Remove">&times;</button>
+    </div>
+  </template>
+
+  <!-- App Prompt Dialog (replaces browser prompt/confirm/alert) -->
+  <dialog id="app-prompt-dialog" class="editor-dialog app-prompt-dialog">
+    <form method="dialog" novalidate>
+      <div class="dialog-header">
+        <h2 id="app-prompt-title"></h2>
+        <button type="button" id="app-prompt-close" class="btn-icon" aria-label="Close">&times;</button>
+      </div>
+      <p id="app-prompt-message" class="app-prompt-message"></p>
+      <div id="app-prompt-input-wrap" class="app-prompt-input-wrap">
+        <input id="app-prompt-input" type="text" class="app-prompt-input" maxlength="80" autocomplete="off">
+        <p id="app-prompt-error" class="editor-error" role="alert" aria-live="assertive"></p>
+      </div>
+      <div class="app-prompt-actions">
+        <button type="button" id="app-prompt-cancel" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="app-prompt-confirm" class="btn btn-primary">Confirm</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Keyboard Help Overlay -->
+  <div id="keyboard-help" class="keyboard-help" style="display:none;">
+    <div class="keyboard-help-content">
+      <h3>Keyboard Shortcuts</h3>
+      <div class="keyboard-help-grid">
+        <kbd>Space</kbd><span>Start / Pick Next</span>
+        <kbd>S</kbd><span>Skip Current</span>
+        <kbd>P</kbd><span>Pause / Resume</span>
+        <kbd>E</kbd><span>End Session</span>
+        <kbd>Esc</kbd><span>Cancel pick / Exit session</span>
+        <kbd>&larr; &rarr;</kbd><span>Change Mode</span>
+        <kbd>?</kbd><span>Toggle This Help</span>
+      </div>
+      <p class="keyboard-help-dismiss">Press <kbd>?</kbd> or <kbd>Esc</kbd> to close</p>
+    </div>
+  </div>
+
+  <!-- Welcome overlay: visible from first paint so the app never flashes behind it -->
+  <div id="welcome-overlay" class="welcome-overlay"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

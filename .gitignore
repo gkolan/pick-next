@@ -1,0 +1,46 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/dist
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+*.log
+
+# env files (the app needs none; keep secrets out if a host adds some)
+.env*
+!.env.example
+
+# hosting
+.vercel
+.netlify
+.wrangler/
+
+# local-only overrides and caches
+*.local
+.cache/
+
+# personal editor and AI-assistant setup (not needed to run or test the project)
+/.vscode/
+/.idea/
+*.code-workspace
+/.claude/
+/.agents/
+/.codex/
+/CLAUDE.md
+/AGENTS.md
+.eslintcache
+
+# OS files
+Thumbs.db
+[Dd]esktop.ini
+
+# internal notes: specs, plans, history, deployment (kept locally)
+/internal/
