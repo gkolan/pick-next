@@ -3,46 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pick Next | Fun standups, raffles, and team icebreakers</title>
-  <meta name="description" content="Run fair standups, suspenseful raffles, and social icebreakers with a beautifully shareable team picker.">
+  <title>PickNext | Random team picker for standups, raffles & icebreakers</title>
+  <meta name="description" content="Free random name picker for teams. Run fair standups, suspenseful raffles, icebreakers and hot-seat Q&amp;A. No sign-up, works on a shared screen.">
   <link rel="canonical" href="https://picknext.io/">
   <meta name="theme-color" content="#fff4dd" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1d1915" media="(prefers-color-scheme: dark)">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Pick Next | Fun standups, raffles, and team icebreakers">
-  <meta property="og:description" content="Run fair standups, suspenseful raffles, and social icebreakers with a beautifully shareable team picker.">
+  <meta property="og:title" content="PickNext | Random team picker for standups, raffles & icebreakers">
+  <meta property="og:description" content="Free random name picker for teams. Run fair standups, suspenseful raffles, icebreakers and hot-seat Q&amp;A. No sign-up, works on a shared screen.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://picknext.io/">
-  <meta property="og:site_name" content="Pick Next">
+  <meta property="og:site_name" content="PickNext">
+  <meta property="og:locale" content="en_US">
   <meta property="og:image" content="https://picknext.io/og/default.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Pick Next shared-screen interface with a highlighted winner">
 
   <!-- X / Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Pick Next | Fun standups, raffles, and team icebreakers">
-  <meta name="twitter:description" content="Run fair standups, suspenseful raffles, and social icebreakers with a beautifully shareable team picker.">
+  <meta name="twitter:title" content="PickNext | Random team picker for standups, raffles & icebreakers">
+  <meta name="twitter:description" content="Free random name picker for teams. Run fair standups, suspenseful raffles, icebreakers and hot-seat Q&amp;A. No sign-up, works on a shared screen.">
   <meta name="twitter:image" content="https://picknext.io/og/default.png">
+  <meta name="twitter:image:alt" content="Pick Next shared-screen interface with a highlighted winner">
 
   <!-- Favicon & Manifest -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/icon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="PickNext">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Pick Next",
-    "url": "https://picknext.io/",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Any",
-    "description": "A web app for standups, raffles, and social icebreakers with suspenseful participant picking.",
-    "offers": { "@type": "Offer", "price": "0" }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "PickNext",
+        "alternateName": "Pick Next",
+        "url": "https://picknext.io/"
+      },
+      {
+        "@type": "WebApplication",
+        "name": "PickNext",
+        "url": "https://picknext.io/",
+        "image": "https://picknext.io/og/default.png",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Free random team picker for standups, raffles, icebreakers and hot-seat Q&A, with suspenseful participant picking on a shared screen.",
+        "featureList": ["Timed standup turns", "Multi-prize raffle draws", "Icebreaker topics", "Hot-seat rapid-fire questions", "Mark people out for the day", "Shareable team links"],
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    ]
   }
   </script>
 
@@ -508,6 +525,10 @@
     </div>
   </div>
 
+  <noscript>
+    <h2>PickNext: a random team picker</h2>
+    <p>Fair and fun picking for standups, raffles, icebreakers and hot-seat Q&amp;A. PickNext needs JavaScript to run; please enable it.</p>
+  </noscript>
   <!-- Welcome overlay: visible from first paint so the app never flashes behind it -->
   <div id="welcome-overlay" class="welcome-overlay"></div>
 
